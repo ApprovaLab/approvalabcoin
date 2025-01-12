@@ -63,10 +63,12 @@ app.post<{}, MessageResponse>('/solana/contract-info', (req, res) => {
 app.post<{}, MessageResponse>('/solana/send', (req, res) => {
 
     const {address, amount} = req.body;
-    solana.sendToAddress(address, amount)
+    solana.transferCustomToken(address, amount)
         .then((info: any) => {
             res.json(info as any);
-        })
+        }).catch((error: any) => {
+        res.json(error as any);
+    });
 });
 
 
